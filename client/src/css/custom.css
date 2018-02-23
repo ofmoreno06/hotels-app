@@ -1,0 +1,88 @@
+/* GENERAL */
+body{
+    background-color:#f4f4f4;
+  }
+
+#main-header{
+  height: 100px;
+  margin-bottom: 30px;
+}
+
+#logo{
+  padding: 25px; 
+}
+
+#main-content{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+#show-more{
+  font-size: 3em; 
+}
+
+/* STAR FILTER COMPONENT */
+.star-filter-block{
+  display:block;
+}
+.star-filter-block svg.ng-scope {
+  display: inline-block;
+  width: 1.3rem;
+}
+.star-filter-block path{
+  fill: #fdba12;
+}
+
+
+/* PRODUCT OVERVIEW COMPONENT */
+.amenities-icons svg.ng-scope {
+  display: inline-block;
+  width: 1.5rem;
+}
+.amenities-icons{
+  display:inline-block;
+  padding-right: 10px;
+}
+.stars-icons svg.ng-scope {
+  display: inline-block;
+  width: 1.3rem;
+}
+.stars-icons{
+  display:inline-block;
+  padding-right: 10px;
+}
+.stars-icons path{
+  fill: #fdba12;
+}
+.icon-container{
+  width: 100%;
+}
+.btn-primary{
+  background-color: #002c77; 
+}
+.price-section{
+  padding-left: 5%;
+  padding-right: 5%;
+  border-left: dashed #dadada 2px;
+  line-height: 3em;
+}
+.see-product-button{
+  border-radius: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 2em;
+  font-weight: 700;
+}
+.price-message{
+  color: #555; 
+}
+.currency{
+  color: #df6800; 
+  font-weight: 400;
+  font-size: 2em;
+}
+.price{
+  color: #df6800; 
+  font-weight: 600;
+  font-size: 3em;
+}
