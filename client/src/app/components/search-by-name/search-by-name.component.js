@@ -7,7 +7,8 @@ const componentConfig = {
   template: getTemplate2(),
   controller: SearchByNameComponentController,
   bindings: {
-    search: '&'
+    search: '&',
+    iconsDirectory: '<'
   }
 };
 
@@ -21,22 +22,41 @@ angular.module('almundoApp')
 function SearchByNameComponentController(){
   const $ctrl = this;
 
+  $ctrl.$onInit = function(){
+    $ctrl.searchIconRoute = $ctrl.iconsDirectory + 'filters/search.svg';
+    $ctrl.componentBodyOpen = true;
+  }
+  
   $ctrl.searchByName = function(){
     if (typeof $ctrl.stringSearch === 'undefined'){
       return;
     }
     $ctrl.search({searchString: $ctrl.stringSearch});
   }
+
+  $ctrl.toggleComponentBody = function(){
+    $ctrl.componentBodyOpen = !$ctrl.componentBodyOpen;
+  };
+
+
 }
 
 // =====================================================
 // template
 function getTemplate2(){
+
   return `
     <div>
       <div>
-        <h4>Nombre del hotel</h4>
-         <form ng-submit="$ctrl.searchByName()">
+        <a class="pull-right" ng-click="$ctrl.toggleComponentBody()" style="cursor:pointer" >
+          <span class="glyphicon"   
+                ng-class="{'glyphicon-triangle-bottom':!$ctrl.componentBodyOpen, 'glyphicon-triangle-top':$ctrl.componentBodyOpen}">
+          <span/>
+        </a>
+        <h4 class="filter-component-title">
+          <ng-include src="$ctrl.searchIconRoute"></ng-include> Nombre del hotel
+        </h4>
+        <form ng-submit="$ctrl.searchByName()" ng-show="$ctrl.componentBodyOpen">
           <div class="row">
             <div class="col-md-8">
               <input  type="text" class="form-control" 

@@ -23,6 +23,13 @@
 				{
 					test: /\.css?$/,
 					loader: 'style-loader!css-loader'
+				},
+				{
+					test: /\.html?$/,
+				  loader: 'file-loader',
+				  options: {
+				    name: '../[name].[ext]'
+				  }  
 				}
 			]
 		},

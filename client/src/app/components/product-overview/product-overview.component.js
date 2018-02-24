@@ -1,9 +1,10 @@
 (function(){
 'use strict'
 
+// =====================================================
+// config
 const componentConfig = {
-  // templateUrl: 'app/components/product-overview/product-overview.template.html',
-  template: getTemplate3(),
+  template: getTemplate(),
   controller: ProductOverviewComponentController,
   bindings: {
     hotel: '<',
@@ -13,9 +14,13 @@ const componentConfig = {
   }
 };
 
+// =====================================================
+// declare
 angular.module('almundoApp')
 .component('productOverviewComponent', componentConfig);
 
+// =====================================================
+// logic
 function ProductOverviewComponentController(){
   const $ctrl = this;
 
@@ -29,7 +34,9 @@ function ProductOverviewComponentController(){
   }
 }
 
-function getTemplate3(){
+// =====================================================
+// template
+function getTemplate(){
   return `
     <div class="panel">
       <div class="panel-body">
@@ -43,7 +50,8 @@ function getTemplate3(){
             <h3 class="product-title">{{ $ctrl.hotel.name }}</h3> 
             <!-- stars icons -->
             <div class="icon-container">
-              <div class="stars-icons" ng-repeat="s in [1,2,3,4,5] | limitTo:$ctrl.hotel.stars">
+              <div  class="stars-icons" 
+                    ng-repeat="s in [1,2,3,4,5] | limitTo:$ctrl.hotel.stars">
                 <ng-include src="$ctrl.iconsDirectory + 'filters/star.svg'"></ng-include>  
               </div>
             </div>

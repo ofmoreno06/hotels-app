@@ -21,6 +21,20 @@ body{
   font-size: 3em; 
 }
 
+/* FILTER COMPONENTS */
+.filter-component-title {
+  color: #0675ae;
+}
+
+.filter-component-title svg.ng-scope {
+  display: inline-block;
+  width: 1.3rem;
+}
+
+.filter-component-title path{
+  fill: #0675ae;
+}
+
 /* STAR FILTER COMPONENT */
 .star-filter-block{
   display:block;
