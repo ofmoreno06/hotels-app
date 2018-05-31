@@ -8,7 +8,6 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 
 // ========================================================
 // imports and declarations
-console.log('dirname is: ', __dirname);
 const path = require('path');
 const config = require(__dirname + '/../config.js').server;
 const ROUTES_DIR = __dirname + '/routes';

@@ -4,7 +4,6 @@
 // ========================================================
 // imports and declarations
 
-console.log(__dirname + '/../../config.js');
 const config = require(process.env.CONFIG_FILE_URL).server;
 const model = require(config.MODELURL);
 
