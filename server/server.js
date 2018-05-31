@@ -38,16 +38,11 @@ app.use(function(err, req, res, next){
 app.get('/api', function(req, res){
   res.status(200).send({msg: 'Welcome to Almundo API' });
 });
-// HOTELS
+
 require(ROUTES_DIR + '/hotels.route.js')(app);
 
-// ========================================================
-// RUN SERVER
-app.listen(config.PORT, function listenCallback(){
-    console.log(
-      `App running in ${process.env.NODE_ENV} environment. 
-      App Listening in port ${config.PORT}.`
-    );
-});
+// EXPORT APP
+exports.app = app;
+
 
 })();

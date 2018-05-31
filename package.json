@@ -4,6 +4,7 @@
   "description": "aplicación de prueba para Almundo.",
   "main": "server/server.js",
   "scripts": {
+    "start": "node ./server/start-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
