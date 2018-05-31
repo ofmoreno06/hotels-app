@@ -7,15 +7,18 @@
 
 // ===================================================
 // imports and declarations
+
 const data = require('./data/data.json');
 const simulateError = false;
 
 // ===================================================
 // get hotels
-exports.getHotels = function getHotelsCallback(params, callback){
-  fakeCallToDB(function fakeCallToDbCallback(){
+
+exports.getHotels = function(params, callback){
+
+  fakeDBRequest(function handleFakeDBRequest(){
     if (Object.getOwnPropertyNames(params).length === 0){
-      callback(null, data); 
+      callback(null, data);
     }
     else{
       let dataToReturn = data;
@@ -25,20 +28,24 @@ exports.getHotels = function getHotelsCallback(params, callback){
       if (params.name){
         dataToReturn = filterByName(dataToReturn, params.name.toLowerCase());
       }
-      callback(null, dataToReturn); 
+      callback(null, dataToReturn);
     }
   });
+
 };
 
 // ===================================================
 // get hotel by id
-exports.getHotelById = function getHotelByIdCallback(id, callback){
-  fakeCallToDB(function fakeCallToDbCallback(){
-    const dataToReturn = data.filter(function(hotel){
-      return hotel.id === id; 
+
+exports.getHotelById = function(id, callback){
+
+  fakeDBRequest(function handleFakeDBRequest(){
+    const dataToReturn = data.find(function(hotel){
+      return hotel.id === id;
     });
-    callback(null, dataToReturn); 
+    callback(null, dataToReturn);
   });
+
 };
 
 // ===================================================
@@ -57,6 +64,7 @@ exports.getHotelById = function getHotelByIdCallback(id, callback){
 
 // =============================
 // by stars
+
 function filterByStars(array, starsString){
   const stars = starsString.split('');
 
@@ -78,6 +86,7 @@ function filterByStars(array, starsString){
 
 // =============================
 // by name
+
 function filterByName(array, searchString){
   const terms = searchString.split(' ');
 
@@ -98,7 +107,9 @@ function filterByName(array, searchString){
 }
 
 // fake call to db
-function fakeCallToDB(doThis){
+
+function fakeDBRequest(doThis){
   setTimeout(doThis, 500);
 };
+
 })();
