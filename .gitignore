@@ -1,3 +1,5 @@
 node_modules/
 client/src/bower_components/
-
+config-dev.js
+config-test.js
+config-prod.js

@@ -9,7 +9,7 @@
 // ========================================================
 // imports and declarations
 process.env.NODE_ENV = 'development';
-const config = require('../config.js');
+const config = require(process.env.CONFIG_FILE_URL).server;
 const request = require('request');
 const APIURL = config.TEST_API_URL;
 
@@ -19,7 +19,7 @@ const APIURL = config.TEST_API_URL;
 // ========================================================
 function testPostHotel(){
   console.log('TEST: postHotel');
-  
+
   const hotelToPost = {
     name: 'myTestHotel',
     stars: 5,
@@ -48,8 +48,8 @@ function testPostHotel(){
     console.log('testPostHotel OK!');
   }
 
-  request.post(getRequestConfig('/hotels', hotelToPost), postHotelCallback);    
-  
+  request.post(getRequestConfig('/hotels', hotelToPost), postHotelCallback);
+
 }
 
 // ========================================================
@@ -57,14 +57,14 @@ function testPostHotel(){
 // ========================================================
 function testGetHotels(){
   console.log('TEST: getHotels');
-  
+
   const getHotelsCallback = function(err, httpResponse, body){
     let msg;
 
     // not error in response
     msg = 'getHotelsError: Hotel list could not read';
     makeTest(!err, msg, err);
-     
+
     // http stautus 200
     msg = 'getHotelsError: http status is not 200';
     makeTest(httpResponse.statusCode === 200, msg, httpResponse.status);
@@ -73,14 +73,14 @@ function testGetHotels(){
     const responseData = JSON.parse(body);
     msg = 'getHotelsError: Response body is not an array';
     makeTest(Array.isArray(responseData), msg, httpResponse.status);
-   
+
     // one element of response has hotel properties
     msg = 'getHotelsError: response[3] is not a valid hotel';
     const hasHotelProperties = (
-      responseData[3].hasOwnProperty('name') &&    
-      responseData[3].hasOwnProperty('stars') &&    
-      responseData[3].hasOwnProperty('price') &&    
-      responseData[3].hasOwnProperty('image') &&    
+      responseData[3].hasOwnProperty('name') &&
+      responseData[3].hasOwnProperty('stars') &&
+      responseData[3].hasOwnProperty('price') &&
+      responseData[3].hasOwnProperty('image') &&
       responseData[3].hasOwnProperty('amenities')
     );
     makeTest(hasHotelProperties, msg, responseData);
@@ -90,18 +90,18 @@ function testGetHotels(){
   }
 
   request.get(`${APIURL}/hotels`, getHotelsCallback);
-} 
+}
 
 function testGetHotelsFiteredByStars(){
   console.log('TEST: testGetHotelsFiteredByStars');
-  
+
   const getHotelsFilteredCallback = function(err, httpResponse, body){
     let msg;
 
     // not error in response
     msg = 'testGetHotelsFiteredByStars: Hotel list could not read';
     makeTest(!err, msg, err);
-     
+
     // http stautus 200
     msg = 'testGetHotelsFiteredByStars: http status is not 200';
     makeTest(httpResponse.statusCode === 200, msg, httpResponse.status);
@@ -110,12 +110,12 @@ function testGetHotelsFiteredByStars(){
     const responseData = JSON.parse(body);
     msg = 'testGetHotelsFiteredByStars: Response body is not an array';
     makeTest(Array.isArray(responseData), msg, httpResponse.status);
-    
+
    // all hotels have 4 or 3 stars
-   msg = 'testGetHotelsFiteredByStars: Hotel hasn\'t 3 or 4 stars'; 
+   msg = 'testGetHotelsFiteredByStars: Hotel hasn\'t 3 or 4 stars';
    responseData.forEach(function(hotel){
-     makeTest(hotel.stars === 4 || hotel.stars ===3, msg, hotel); 
-   }); 
+     makeTest(hotel.stars === 4 || hotel.stars ===3, msg, hotel);
+   });
 
     // all tests passed
     console.log('testGetHotels OK!');
@@ -126,14 +126,14 @@ function testGetHotelsFiteredByStars(){
 
 function testGetHotelsFiteredByName(){
   console.log('TEST: testGetHotelsFiteredByName');
-  
+
   const getHotelsFilteredCallback = function(err, httpResponse, body){
     let msg;
 
     // not error in response
     msg = 'testGetHotelsFiteredByName: Hotel list could not read';
     makeTest(!err, msg, err);
-     
+
     // http stautus 200
     msg = 'testGetHotelsFiteredByName: http status is not 200';
     makeTest(httpResponse.statusCode === 200, msg, httpResponse.status);
@@ -142,13 +142,13 @@ function testGetHotelsFiteredByName(){
     const responseData = JSON.parse(body);
     msg = 'testGetHotelsFiteredByName: Response body is not an array';
     makeTest(Array.isArray(responseData), msg, httpResponse.status);
-    
+
    // all hotels have name contains search words
-   msg = 'testGetHotelsFiteredByName: Hotel name dont contain search words'; 
+   msg = 'testGetHotelsFiteredByName: Hotel name dont contain search words';
    responseData.forEach(function(hotel){
-     makeTest(hotel.name.toLowerCase().indexOf('cruz') !== -1 || 
-      hotel.name.toLowerCase().indexOf('miraflores') !== -1, msg, hotel); 
-   }); 
+     makeTest(hotel.name.toLowerCase().indexOf('cruz') !== -1 ||
+      hotel.name.toLowerCase().indexOf('miraflores') !== -1, msg, hotel);
+   });
 
     // all tests passed
     console.log('testGetHotels OK!');
@@ -162,14 +162,14 @@ function testGetHotelsFiteredByName(){
 // ========================================================
 function testGetHotelById(){
   console.log('TEST: getHotelById');
-  
+
   const getHotelByIdCallback = function(err, httpResponse, body){
     let msg;
 
     // not error in response
     msg = 'getHotelByIdError: Hotel could not be read';
     makeTest(!err, msg, err);
-     
+
     // http stautus 200
     msg = 'getHotelByIdError: http status is not 200';
     makeTest(httpResponse.statusCode === 200, msg, httpResponse.status);
@@ -178,15 +178,15 @@ function testGetHotelById(){
     const responseData = JSON.parse(body);
     msg = 'getHotelByIdError: Response body is not an array';
     makeTest(Array.isArray(responseData), msg, httpResponse.status);
-   
+
     // response object hotel properties
     msg = 'getHotelByIdError: response object is not the correct hotel';
     const isCorrectObject = (
-      responseData[0].id === '161914' &&    
-      responseData[0].name === 'NM Lima Hotel' &&    
-      responseData[0].stars === 4 &&    
-      responseData[0].price === 1445.5 &&    
-      responseData[0].image === '981018_26_b.jpg' &&    
+      responseData[0].id === '161914' &&
+      responseData[0].name === 'NM Lima Hotel' &&
+      responseData[0].stars === 4 &&
+      responseData[0].price === 1445.5 &&
+      responseData[0].image === '981018_26_b.jpg' &&
       responseData[0].amenities.toString() === 'business-center,nightclub,deep-soaking-bathtub,fitness-center,garden'
     );
     makeTest(isCorrectObject, msg, responseData);
@@ -245,7 +245,7 @@ function hotelsMatch(hotelA, hotelB){
       hotelA.price === hotelB.price &&
       hotelA.image === hotelB.image &&
       hotelA.amenities.toString() === hotelB.amenities.toString()
-    );    
+    );
   }
   else {
     return false;

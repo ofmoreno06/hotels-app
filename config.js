@@ -4,37 +4,35 @@
 // ===================================================
 // CONFIG FILE: PruebaAlmundo
 // ===================================================
-	
+
 // ===================================================
 // imports and declarations
+
 const path = require('path');
 
-// ===================================================
-// DEV ENV CONFIG
-const devConfig = {
-  PORT: 8000,
-  MODELURL: __dirname + '/server/mockModel.js',
-  STATIC_FILES_DIR: __dirname + '/client/dist'
-};
-devConfig.TEST_API_URL = `http://localhost:${devConfig.PORT}/api`
+process.env.CONFIG_FILE_URL = __dirname + '/config.js';
 
-// ===================================================
-// PRODUCTION CONFIG
-const prodConfig = {
-  STATIC_FILES_DIR: __dirname + '/client'
-};
-
-// ===================================================
-// Export configuration according to NODE_ENV
-if (process.env.NODE_ENV === 'development'){
-  module.exports = devConfig;
+if (!process.env.NODE_ENV){
+  process.env.NODE_ENV = 'development';
 }
-else if (process.env.NODE_ENV === 'production'){
-  module.exports = prodConfig;
+
+// ===================================================
+// export
+
+console.log(`loading ${process.env.NODE_ENV} config`);
+
+if(process.env.NODE_ENV === 'development'){
+  module.exports = require(__dirname + '/config-dev.js');
+}
+else if(process.env.NODE_ENV === 'test'){
+  module.exports = require(__dirname + '/config-test.js');
+}
+else if(process.env.NODE_ENV === 'production'){
+  module.exports = require(__dirname + '/config-prod.js');
 }
 else{
-  console.log('Not valid environment defined. Is NODE_ENV set?');
-  process.exit();
+  console.log(`NODE_ENV=${process.env.NODE_ENV} is not a valid environment.`);
+  process.exit(-1);
 }
 
 })();

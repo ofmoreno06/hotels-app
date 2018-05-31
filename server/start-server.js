@@ -1,8 +1,7 @@
 (function(){
   'use strict';
-
   const app = require('./server.js').app;
-  const config = require(__dirname + '/../config.js');
+  const config = require(process.env.CONFIG_FILE_URL).server;
 
   // ========================================================
   // RUN SERVER
